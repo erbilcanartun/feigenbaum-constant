@@ -1,15 +1,28 @@
 import numpy as np
+import mpmath as mp
+
+def array_round(series, decimal_precision):
+
+    series_ = []
+    for x in series:
+        
+        x_ = mp.mpf(mp.nstr(x, decimal_precision))
+        series_.append(x_)
+
+    return np.array(series_)
 
 def logistic_map(r, x):
+    r = mp.mpf(r)
+    x = mp.mpf(x)
     
     return r * x * (1 - x)
 
-def generate_series(r, length):
+def generate_series(r, x0, length):
 
-    x0 = 0.4
-    series = [x0]
     x = x0
-    for i in range(length - 1):
+    series = []
+    
+    for i in range(length):
         x = logistic_map(r, x)
         series.append(x)
 
