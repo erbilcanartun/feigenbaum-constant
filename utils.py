@@ -23,7 +23,7 @@ def generate_series(f, fparam, x0, length):
 
     return np.array(series)
 
-def find_bifurcation_points(f, fparam, x0, fparam_range, fparam_step_size=1e-4, length=int(1e7), tolerance=1e-6):
+def find_bifurcation_points(f, fparam_range, x0, fparam_step_size=1e-4, series_length=int(1e7), round_tolerance=1e-6):
 
     bifurcations = []
     prev_unique_count = None
@@ -33,8 +33,8 @@ def find_bifurcation_points(f, fparam, x0, fparam_range, fparam_step_size=1e-4, 
 
     for parameter in parameter_values:
 
-        series = generate_series(f, fparam, x0, length)[-1000:]
-        unique_count = np.unique(series.round(decimals=int(-np.log10(tolerance)))).size
+        series = generate_series(f, parameter, x0, int(series_length))[-int(N * .1):]
+        unique_count = np.unique(series.round(decimals=int(-np.log10(round_tolerance)))).size
 
         if prev_unique_count is not None and unique_count != prev_unique_count:
             bifurcations.append(parameter)
