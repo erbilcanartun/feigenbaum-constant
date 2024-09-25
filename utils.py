@@ -1,44 +1,39 @@
 import numpy as np
 import mpmath as mp
+from models import *
 
 def array_round(series, decimal_precision):
 
     series_ = []
     for x in series:
-        
+
         x_ = mp.mpf(mp.nstr(x, decimal_precision))
         series_.append(x_)
 
     return np.array(series_)
 
-def logistic_map(r, x):
-    r = mp.mpf(r)
-    x = mp.mpf(x)
-    
-    return r * x * (1 - x)
-
-def generate_series(r, x0, length):
+def generate_series(f, fparam, x0, length):
 
     x = x0
     series = []
-    
+
     for i in range(length):
-        x = logistic_map(r, x)
+        x = f(fparam, x)
         series.append(x)
 
     return np.array(series)
 
-def find_bifurcation_points(parameter_range, length=int(1e7), tolerance=1e-8):
+def find_bifurcation_points(f, fparam, x0, fparam_range, fparam_step_size=1e-4, length=int(1e7), tolerance=1e-6):
 
     bifurcations = []
     prev_unique_count = None
 
-    #parameter_values = np.arange(*parameter_range, step)
-    parameter_values = np.linspace(*parameter_range, 10000)
+    parameter_values = np.arange(*parameter_range, fparam_step_size)
+    #parameter_values = np.linspace(*fparam_range, 10000)
 
     for parameter in parameter_values:
-        
-        series = generate_series(parameter, length)[-1000:]
+
+        series = generate_series(f, fparam, x0, length)[-1000:]
         unique_count = np.unique(series.round(decimals=int(-np.log10(tolerance)))).size
 
         if prev_unique_count is not None and unique_count != prev_unique_count:
