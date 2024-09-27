@@ -1,7 +1,13 @@
 import numpy as np
 import mpmath as mp
 
-def logistic_map(r, x, mpf=False):
+class mpfDataType:
+
+    def __init__(self, mpf_dtype):
+        global mpf
+        mpf = mpf_dtype
+
+def logistic_map(r, x):
 
     if mpf:
         r = mp.mpf(r)
