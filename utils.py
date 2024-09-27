@@ -29,7 +29,6 @@ def find_bifurcation_points(f, fparam_range, x0, fparam_step_size=1e-4, series_l
     prev_unique_count = None
 
     parameter_values = np.arange(*parameter_range, fparam_step_size)
-    #parameter_values = np.linspace(*fparam_range, 10000)
 
     for parameter in parameter_values:
 
@@ -42,3 +41,43 @@ def find_bifurcation_points(f, fparam_range, x0, fparam_step_size=1e-4, series_l
         prev_unique_count = unique_count
 
     return bifurcations
+
+def bifurcation_diagram(r_min, r_max, num_r, num_iterations, last_iterations):
+    # Generate r values
+    r_values = np.linspace(r_min, r_max, num_r)
+    
+    # Prepare an empty list to hold r and x values
+    x_values = []
+    r_output = []
+    
+    # Iterate over each r value
+    for r in r_values:
+        # Start with a random initial x value
+        x = np.random.random()
+        
+        # Iterate the logistic map
+        for i in range(num_iterations):
+            x = logistic_map(r, x)
+            # Store only the last 'last_iterations' iterations for the diagram
+            if i >= (num_iterations - last_iterations):
+                r_output.append(r)
+                x_values.append(x)
+    
+    return r_output, x_values
+
+def feigenbaum_constant(lst):
+    if len(lst) < 3:
+        raise ValueError("List must contain at least three elements.")
+    
+    ratios = []
+    for i in range(len(lst) - 2):
+        diff1 = lst[i+1] - lst[i]
+        diff2 = lst[i+2] - lst[i+1]
+        
+        if diff2 == 0:
+            ratios.append(None)  # Avoid division by zero
+        else:
+            ratios.append(diff1 / diff2)
+    
+    return ratios
+    
