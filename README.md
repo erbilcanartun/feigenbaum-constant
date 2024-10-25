@@ -80,4 +80,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 For questions or suggestions, please contact <artun@mail.com>.
 
-***Note: This research is in progress. Methods, results, and documentation are being actively developed and may change significantly.*
+***Note**: This research is in progress. Methods, results, and documentation are being actively developed and may change significantly.*
