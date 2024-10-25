@@ -2,9 +2,7 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-:: WARNING ::  
-THIS IS AN ONGOING PROJECT, THE CODE IS NOT COMPLETE
--
+⚠️ WARNING: This project is currently under active development and research. Results and methods are preliminary and subject to change.
 
 ## Table of Contents
 
@@ -81,3 +79,5 @@ This project is licensed under the [MIT License](LICENSE).
 ## Contact
 
 For questions or suggestions, please contact <artun@mail.com>.
+
+***Note: This research is in progress. Methods, results, and documentation are being actively developed and may change significantly.*
